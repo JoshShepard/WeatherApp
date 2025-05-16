@@ -8,6 +8,7 @@
     --main-font: Roboto, san-serif;
     --main-font-color: #F1FAEE;
     --search-btn-bg-color: #000;
+    --search-btn-hover-color: #252525;
 }
 
 body {
@@ -60,6 +61,6 @@ main {
 }
 
 #search-btn:hover {
-    background-color: #252525; 
+    background-color: var(--search-btn-hover-color); 
     transform: scale(1.02); 
 }
