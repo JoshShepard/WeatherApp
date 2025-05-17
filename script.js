@@ -44,5 +44,12 @@ const getWeather = async () => {
     }
 }
 
-
+/*
+    displayWeather(data)
+    data -> is the object returned from the api call. 
+    Parse through data object to get weather info and create a sleek UI
+*/
+const displayWeather = data => {
+    
+}
 
