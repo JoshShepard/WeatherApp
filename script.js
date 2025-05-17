@@ -36,10 +36,13 @@ const getWeather = async () => {
         }
         
         // TODO: Create displayWeather function, model styling off of weather app inspiration. Remember to still use styling in css file so give id/class names
-        displayWeather(data);
+        // displayWeather(data);
+
 
     } catch (error) {
         console.error('Error loading weather details', error);
     }
 }
+
+
 
