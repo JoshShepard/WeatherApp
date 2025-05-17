@@ -16,7 +16,7 @@ body {
     background-image: radial-gradient(circle, #1a1a1a, #111111, #000000);
 }
 
-main {
+#mainContainer {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -63,4 +63,22 @@ main {
 #search-btn:hover {
     background-color: var(--search-btn-hover-color); 
     transform: scale(1.02); 
+}
+
+.locationContainer {
+    width: 100%;
+    color: var(--main-font-color);
+    display: flex;
+    font-family: var(--main-font);
+}
+
+.icon {
+    color: var(--main-font-color);
+    font-size: 3rem;
+}
+
+.locationText {
+    color: var(--main-font-color);
+    font-size: 3rem;
+    font-family: var(--main-font);
 }

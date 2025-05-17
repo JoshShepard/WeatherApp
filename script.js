@@ -4,6 +4,9 @@ const userForm = document.getElementById('city-form');
 // Input Element - used to grab user input
 const userInputElement = document.getElementById('city-search');
 
+// Main Container - used for displaying weather dashboard
+const mainContainer = document.getElementById('mainContainer');
+
 /*
     Event listener for form submission
     Call preventDefault() on event to stop refresh on submission.
@@ -36,7 +39,7 @@ const getWeather = async () => {
         }
         
         // TODO: Create displayWeather function, model styling off of weather app inspiration. Remember to still use styling in css file so give id/class names
-        // displayWeather(data);
+        displayWeather(data);
 
 
     } catch (error) {
@@ -45,11 +48,42 @@ const getWeather = async () => {
 }
 
 /*
+    displayLocation(location) 
+    location -> location arguement is going to be from weather object (data) that was retrieved from the api call. 
+    Location icon, city, region, country will be displayed at top for no confusion of where the weather is from.
+*/
+
+const displayLocation = location => {
+    // Location container
+    const locationContainer = document.createElement('div');
+    locationContainer.classList.add('locationContainer');
+
+    // Location icon
+    const icon = document.createElement('i');
+    icon.classList.add('fa-solid', 'fa-location-dot', 'icon');
+
+    // Location city
+    const cityResult = document.createElement('p');
+    cityResult.classList.add('locationText');
+    cityResult.innerText = `${location.name}, ${location.region}, ${location.country}`;
+
+    // Append location data to container
+    locationContainer.appendChild(icon);
+    locationContainer.appendChild(cityResult);
+
+    mainContainer.innerHTML = '';
+
+    mainContainer.appendChild(locationContainer);
+}
+
+/*
     displayWeather(data)
     data -> is the object returned from the api call. 
     Parse through data object to get weather info and create a sleek UI
+
+    FIXME: Allow for more searches again after dashboard display is done
 */
-// const displayWeather = data => {
-    
-// }
+const displayWeather = data => {
+    displayLocation(data.location);
+}
 
