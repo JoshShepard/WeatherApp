@@ -65,6 +65,8 @@ body {
     transform: scale(1.02); 
 }
 
+
+/* TODO: Need to style the location element before moving on the next piece of the dashboard */
 .locationContainer {
     width: 100%;
     color: var(--main-font-color);

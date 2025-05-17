@@ -54,15 +54,15 @@ const getWeather = async () => {
 */
 
 const displayLocation = location => {
-    // Location container
+    // Create location container
     const locationContainer = document.createElement('div');
     locationContainer.classList.add('locationContainer');
 
-    // Location icon
+    // Create location icon
     const icon = document.createElement('i');
     icon.classList.add('fa-solid', 'fa-location-dot', 'icon');
 
-    // Location city
+    // Create location element
     const cityResult = document.createElement('p');
     cityResult.classList.add('locationText');
     cityResult.innerText = `${location.name}, ${location.region}, ${location.country}`;
@@ -71,8 +71,10 @@ const displayLocation = location => {
     locationContainer.appendChild(icon);
     locationContainer.appendChild(cityResult);
 
+    // Clear mainContainer - Remove user form for now / clear element
     mainContainer.innerHTML = '';
 
+    // Append location container
     mainContainer.appendChild(locationContainer);
 }
 
