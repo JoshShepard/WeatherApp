@@ -7,20 +7,21 @@ const userInputElement = document.getElementById('city-search');
 // Main Container - used for displaying weather dashboard
 const mainContainer = document.getElementById('mainContainer');
 
+
 /*
-    Event listener for form submission
-    Call preventDefault() on event to stop refresh on submission.
+Event listener for form submission
+Call preventDefault() on event to stop refresh on submission.
 */ 
 userForm.addEventListener('submit', e => {
     // Stops page from refreshing
     e.preventDefault();
     getWeather();
+    getForecast();
 });
 
 const getWeather = async () => {
     // User input (city)
     const city = userInputElement.value;
-
     /*
         API Call url, uses generated API Key and user input(city) as parameters
 
@@ -37,8 +38,9 @@ const getWeather = async () => {
         if (data.error) {
             console.log('Error during api call for data');
         }
+
+        console.log(data);
         
-        // TODO: Create displayWeather function, model styling off of weather app inspiration. Remember to still use styling in css file so give id/class names
         displayWeather(data);
 
 
@@ -47,12 +49,26 @@ const getWeather = async () => {
     }
 }
 
+const getForecast = async () => {
+    const cityValue = userInputElement.value;
+    const days = 6;
+
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${encodeURIComponent(cityValue)}&days=${days}`;
+
+    try {
+        const response = await fetch(url);
+        const forecast = await response.json();
+        console.log(forecast);
+    } catch (error) {
+        console.error('Error loading forecast details', error);
+    }
+}
+
 /*
     displayLocation(location) 
     location -> location arguement is going to be from weather object (data) that was retrieved from the api call. 
     Location icon, city, region, country will be displayed at top for no confusion of where the weather is from.
 */
-
 const displayLocation = location => {
     // Create location container
     const locationContainer = document.createElement('div');
@@ -79,6 +95,47 @@ const displayLocation = location => {
 }
 
 /*
+    Grabbing the tempature, description, wind, humidity, and icon?
+
+    REWRITE COMMENT ONCE IT WORKS!
+*/
+const displayWeatherInformation = current => {
+    const currentContainer = document.createElement('div');
+    currentContainer.classList.add('currentContainer');
+
+    // temperature
+    const weatherTemperature = document.createElement('p');
+    weatherTemperature.classList.add('tempatureText');
+    weatherTemperature.innerText = `${current.temp_f}`;
+
+    // weather condition - text
+    const weatherConditionText = document.createElement('p');
+    weatherConditionText.classList.add('weatherConditionText');
+    weatherConditionText.innerText = `${current.condition.text}`
+
+    // image/icon
+    const weatherIcon = document.createElement('img');
+    weatherIcon.classList.add('weatherIcon');
+    weatherIcon.src = `${current.condition.icon}`;
+    
+    // Wind
+    const wind = document.createElement('p');
+    wind.classList.add('wind');
+    wind.innerText = `${current.wind_mph}`;
+
+    // humidity
+    const humidity = document.createElement('p');
+    humidity.classList.add('humidity');
+    humidity.innerText = `${current.humidity}%`;
+
+    mainContainer.appendChild(weatherTemperature);
+    mainContainer.appendChild(weatherConditionText);
+    mainContainer.appendChild(weatherIcon);
+    mainContainer.appendChild(wind);
+    mainContainer.appendChild(humidity);
+}
+
+/*
     displayWeather(data)
     data -> is the object returned from the api call. 
     Parse through data object to get weather info and create a sleek UI
@@ -87,5 +144,6 @@ const displayLocation = location => {
 */
 const displayWeather = data => {
     displayLocation(data.location);
+    displayWeatherInformation(data.current);
 }
 
