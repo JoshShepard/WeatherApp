@@ -49,9 +49,9 @@ body {
 }
 
 #search-btn {
-    padding: 0.8rem 2rem;
+    padding: .8rem 2rem;
     font-size: 1.1rem;
-    border-radius: 2rem;
+    border-radius: 1.5rem;
     border: none;
     background-color: var(--search-btn-bg-color); 
     color: var(--main-font-color);
@@ -67,14 +67,14 @@ body {
 
 
 /* TODO: Need to style the location element before moving on the next piece of the dashboard */
-.locationContainer {
+.locationSection {
     width: 100%;
     color: var(--main-font-color);
     display: flex;
     font-family: var(--main-font);
 }
 
-.icon {
+.locationIcon {
     color: var(--main-font-color);
     font-size: 3rem;
 }
