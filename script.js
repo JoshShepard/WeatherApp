@@ -172,7 +172,7 @@ const displayWeatherImage = current => {
     *******************************************************************************************
     ***TODO: Once dashboard is completed, change to allow toggle for mph/kph***
 */
-const displayWind = current => {
+const displayDetails = current => {
     
 }
 
