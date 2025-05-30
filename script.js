@@ -160,52 +160,95 @@ const displayWeatherImage = current => {
 }
 
 /*
-    displayDetails(current)
+    displayWind(current)
     current -> current parameter is an object stored inside the weather object returned from the API call.  
-    Use this parameter to grab current wind (mph) and humidity and display it in the dashboard
-    ******************************************************************************************* 
-    Stopping for the night
-                    - Find wind icon
-                    - Find humidity icon
-                    - create titles for stats
-                    -display stats
-    *******************************************************************************************
-    ***TODO: Once dashboard is completed, change to allow toggle for mph/kph***
+    Use this parameter to grab current wind (mph) **toggle for kmh/mph??**
 */
-const displayDetails = current => {
-    
+const displayWind = current => {
+    // Container for wind
+    const windContainer = document.createElement('div');
+    windContainer.classList.add('windContainer');
+
+    // Wind header
+    const windHeader = document.createElement('div')
+    windHeader.classList.add('windHeader');
+    const windIcon = document.createElement('i');
+    windIcon.classList.add('fa-solid', 'fa-wind');
+    const wind = document.createElement('p');
+    wind.innerText = `Wind`;
+    windHeader.appendChild(windIcon);
+    windHeader.appendChild(wind);
+
+    // Wind Measurement
+    const windDetails = document.createElement('p');
+    windDetails.classList.add('windDetails');
+    windDetails.innerText = `${current.wind_mph}mph`;
+
+    // Add wind details to container
+    windContainer.appendChild(windHeader);
+    windContainer.appendChild(windDetails);
+
+    return windContainer;
 }
 
 /*
-    Grabbing the tempature, description, wind, humidity, and icon?
-
-    REWRITE COMMENT ONCE IT WORKS!
+    displayHumidity(current)
+    current -> current parameter is an object stored inside the weather object returned from the API call.  
+    Use this parameter to grab current humidity(percentage)
 */
-const displayWeatherInformation = current => {
-    const currentContainer = document.createElement('div');
-    currentContainer.classList.add('currentContainer');
-    
-    // Wind
-    const wind = document.createElement('p');
-    wind.classList.add('wind');
-    wind.innerText = `${current.wind_mph}`;
+const displayHumidity = current => {
+    // Container for humidity
+    const humidityContainer = document.createElement('div');
+    humidityContainer.classList.add('humidityContainer');
 
-    // humidity
+    // Humidity header
+    const humidityHeader = document.createElement('div');
+    humidityHeader.classList.add('humidityHeader');
+    const humidityIcon = document.createElement('i');
+    humidityIcon.classList.add('fa-solid', 'fa-droplet');
+    const humidityTitle = document.createElement('p');
+    humidityTitle.innerText = `Humidity`;
+    humidityHeader.appendChild(humidityIcon);
+    humidityHeader.appendChild(humidityTitle);
+
+    // Humidity Measurement
     const humidity = document.createElement('p');
     humidity.classList.add('humidity');
     humidity.innerText = `${current.humidity}%`;
 
-    mainContainer.appendChild(weatherTemperature);
-    mainContainer.appendChild(weatherConditionText);
-    mainContainer.appendChild(weatherIcon);
-    mainContainer.appendChild(wind);
-    mainContainer.appendChild(humidity);
+    // Add humidity deatils to container
+    humidityContainer.appendChild(humidityHeader);
+    humidityContainer.appendChild(humidity);
+
+    return humidityContainer;
+}
+
+/*
+    displayDetails(current)
+    current -> current parameter is an object stored inside the weather object returned from the API call.  
+    and humidity and display it in the dashboard
+*/
+const displayDetails = current => {
+    // Create wind + humidity section
+    const detailSection = document.createElement('section');
+    detailSection.classList.add('detailSection');
+
+    // Get weather data
+    const windValue = displayWind(current);
+    const humidityValue = displayHumidity(current);
+
+    // Add details to section
+    detailSection.appendChild(windValue);
+    detailSection.appendChild(humidityValue);
+
+    // Add details to main container(dashboard)
+    mainContainer.appendChild(detailSection);
 }
 
 /*
     displayWeather(data)
     data -> is the object returned from the api call. 
-    Parse through data object to get weather info and create a sleek UI
+    Controller function to get data weather and call helper functions to create dashboard
 
     FIXME: Allow for more searches again after dashboard display is done
 */
@@ -217,6 +260,6 @@ const displayWeather = data => {
     displayLocation(data.location);
     displayWeatherCondition(data.current);
     displayWeatherImage(data.current);
-    displayWeatherInformation(data.current);
+    displayDetails(data.current);
 }
 
