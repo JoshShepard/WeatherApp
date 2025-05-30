@@ -70,17 +70,19 @@ body {
 .locationSection {
     width: 100%;
     color: var(--main-font-color);
-    display: flex;
     font-family: var(--main-font);
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
 }
 
-.locationIcon {
+.locationIcon, .locationText {
     color: var(--main-font-color);
-    font-size: 3rem;
+    font-size: 1rem;
 }
 
 .locationText {
-    color: var(--main-font-color);
-    font-size: 3rem;
     font-family: var(--main-font);
 }

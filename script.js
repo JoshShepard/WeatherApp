@@ -255,7 +255,8 @@ const displayDetails = current => {
 const displayWeather = data => {
     // Clear mainContainer (Single page application)
     mainContainer.innerHTML = '';
-
+    mainContainer.style.display = 'block';
+    
     // Display weather dashboard
     displayLocation(data.location);
     displayWeatherCondition(data.current);
