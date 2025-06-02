@@ -9,6 +9,14 @@
     --main-font-color: #F1FAEE;
     --search-btn-bg-color: #000;
     --search-btn-hover-color: #252525;
+    --temp-font-size: 6rem;
+    --temp-font-weight: 300;
+    --weather-desc-size: 4rem;
+    --weather-desc-weight: 200;
+    --weatherTitle-details-size: 1rem;
+    --weatherTitle-details-weight: 200;
+    --windDetails-size: 2.5rem;
+    --windDetails-weight: 200;
 }
 
 body {
@@ -65,8 +73,7 @@ body {
     transform: scale(1.02); 
 }
 
-
-/* TODO: Need to style the location element before moving on the next piece of the dashboard */
+/* LOCATION SECTION (Dashboard) */
 .locationSection {
     width: 100%;
     color: var(--main-font-color);
@@ -85,4 +92,78 @@ body {
 
 .locationText {
     font-family: var(--main-font);
+}
+
+/* WEATHER DASHBOARD SECTION */
+.dashboardSection {
+    border: 3px solid purple;
+    display: flex;
+    /* justify-content: space-between; */
+    height: 800px
+}
+
+/* Weather Stats - temp, description, wind, humidity */
+.weatherStats {
+    padding: 4rem;
+}
+
+.weatherConditionSection, .detailSection {
+    padding: 3rem;
+}
+
+.temp, .weatherDescription {
+    color: var(--main-font-color);
+    font-family: var(--main-font);
+}
+
+.temp {
+    font-size: var(--temp-font-size);
+    font-weight: var(--temp-font-weight);
+}
+
+.weatherDescription {
+    font-size: var(--weather-desc-size);
+    font-weight: var(--weather-desc-weight);
+}
+
+.detailSection {
+    display: flex;
+    gap: 3rem;
+}
+
+.windHeader, .humidityHeader {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+}
+
+.windIcon, .windTitle, .humidityIcon, .humidityTitle {
+    color: var(--main-font-color);
+    font-size: var(--weatherTitle-details-size);
+}
+
+.windTitle, .humidityTitle {
+    font-weight: var(--weatherTitle-details-weight);
+}
+
+.windDetails, .humidity {
+    color: var(--main-font-color);
+    font-size: var(--windDetails-size);
+    font-weight: var(--windDetails-weight);
+}
+
+
+/*
+KEEP TO SEE IF IT NEEDS MARGIN-RIGHT AFTER WEEK FORECAST IS DISPLAYED
+.weatherImageSection {
+}
+*/
+
+.weatherImage {
+    width: 40rem;
+}
+
+.weekForecast {
+    border: 3px solid yellow;
+    width: 400px;
 }

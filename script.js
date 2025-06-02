@@ -7,6 +7,18 @@ const userInputElement = document.getElementById('city-search');
 // Main Container - used for displaying weather dashboard
 const mainContainer = document.getElementById('mainContainer');
 
+// Dashboard section - used to append weather condition, image, details for styling
+const dashboard = document.createElement('section');
+dashboard.classList.add('dashboardSection');
+
+// weatherStats section - used to group temp, description, wind, and humidity
+const weatherStats = document.createElement('section');
+weatherStats.classList.add('weatherStats');
+
+// weekForecast section - used to display the next 7 day forecast
+const weekForecast = document.createElement('section');
+weekForecast.classList.add('weekForecast');
+
 
 /*
     Event listener for form submission
@@ -47,7 +59,7 @@ const getWeather = async () => {
         }
 
         // Log data object
-        console.log(data);
+        console.log(data.current);
         
         // Main calling function that calls helper functions using the data object
         displayWeather(data);
@@ -106,7 +118,7 @@ const displayLocation = location => {
 }
 
 /*
-    displayTemperature(current)
+    displayWeatherCondition(current)
     current -> current parameter is an object stored inside the weather object returned from the API call.  
     Use this parameter to grab current temperature and display it in the dashboard
 
@@ -132,7 +144,7 @@ const displayWeatherCondition = current => {
     weatherConditionSection.appendChild(weatherDescription);
 
     // Append condition to main container(dashboard)
-    mainContainer.appendChild(weatherConditionSection);
+    weatherStats.appendChild(weatherConditionSection);
 }
 
 /*
@@ -150,13 +162,56 @@ const displayWeatherImage = current => {
     const weatherImage = document.createElement('img');
     weatherImage.classList.add('weatherImage');
     weatherImage.alt = 'Animated picture of the current weather';
-    weatherImage.src = `${current.condition.icon}`;
+
+    // Dynamically update the current weather image by code
+    switch (current.condition.code) {
+        // sunny
+        case 1000:
+            weatherImage.src = '/images/sunny.png';
+            break;
+        // partly cloudy
+        case 1003:
+            weatherImage.src = '/images/partly_cloudy.png';
+            break;
+        // cloudy
+        case 1006:
+            weatherImage.src = '/images/cloudy.png';
+            break;
+        // overcast
+        case 1009:
+            weatherImage.src = '/images/overcast.png';
+            break;
+        // mist
+        case 1030:
+            weatherImage.src = '/images/mist.png';
+            break;
+        // patchy rain
+        case 1063:
+            weatherImage.src = '/images/patchy_rain.png';
+            break;
+        // thunderstorm
+        case 1087:
+            weatherImage.src = '/images/thunderstorm.png';
+            break;
+        // patchy snow
+        case 1066:
+            weatherImage.src = 'images/patchy_snow.png';
+            break;
+        // patchy sleet
+        case 1069:
+            weatherImage.src = '/images/patchy_sleet.png';
+            break;
+        // patchy freezing drizzle
+        case 1072:
+            weatherImage.src = '/images/patchy_freezing_drizzle.png';
+            break;
+    }
 
     // Append weather image to section
     weatherImageSection.appendChild(weatherImage);
 
     // Append image section to main container(dashboard)
-    mainContainer.appendChild(weatherImageSection);
+    dashboard.appendChild(weatherImageSection);
 }
 
 /*
@@ -173,11 +228,12 @@ const displayWind = current => {
     const windHeader = document.createElement('div')
     windHeader.classList.add('windHeader');
     const windIcon = document.createElement('i');
-    windIcon.classList.add('fa-solid', 'fa-wind');
-    const wind = document.createElement('p');
-    wind.innerText = `Wind`;
+    windIcon.classList.add('fa-solid', 'fa-wind', 'windIcon');
+    const windTitle = document.createElement('p');
+    windTitle.classList.add('windTitle');
+    windTitle.innerText = `Wind`;
     windHeader.appendChild(windIcon);
-    windHeader.appendChild(wind);
+    windHeader.appendChild(windTitle);
 
     // Wind Measurement
     const windDetails = document.createElement('p');
@@ -205,8 +261,9 @@ const displayHumidity = current => {
     const humidityHeader = document.createElement('div');
     humidityHeader.classList.add('humidityHeader');
     const humidityIcon = document.createElement('i');
-    humidityIcon.classList.add('fa-solid', 'fa-droplet');
+    humidityIcon.classList.add('fa-solid', 'fa-droplet', 'humidityIcon');
     const humidityTitle = document.createElement('p');
+    humidityTitle.classList.add('humidityTitle');
     humidityTitle.innerText = `Humidity`;
     humidityHeader.appendChild(humidityIcon);
     humidityHeader.appendChild(humidityTitle);
@@ -242,7 +299,7 @@ const displayDetails = current => {
     detailSection.appendChild(humidityValue);
 
     // Add details to main container(dashboard)
-    mainContainer.appendChild(detailSection);
+    weatherStats.appendChild(detailSection);
 }
 
 /*
@@ -260,7 +317,13 @@ const displayWeather = data => {
     // Display weather dashboard
     displayLocation(data.location);
     displayWeatherCondition(data.current);
-    displayWeatherImage(data.current);
     displayDetails(data.current);
+
+    // add weather stats to dashboard
+    dashboard.appendChild(weatherStats);
+    displayWeatherImage(data.current);
+    dashboard.appendChild(weekForecast);
+
+    mainContainer.appendChild(dashboard);
 }
 
