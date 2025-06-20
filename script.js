@@ -15,9 +15,9 @@ dashboard.classList.add('dashboardSection');
 const weatherStats = document.createElement('section');
 weatherStats.classList.add('weatherStats');
 
-// weekForecast section - used to display the next 3 day forecast
-const threeDayForecast = document.createElement('section');
-threeDayForecast.classList.add('weekForecast');
+// // weekForecast section - used to display the next 3 day forecast
+// const threeDayForecast = document.createElement('section');
+// threeDayForecast.classList.add('weekForecast');
 
 
 /*
@@ -28,7 +28,6 @@ userForm.addEventListener('submit', e => {
     // Stops page from refreshing
     e.preventDefault();
     getWeather();
-    getForecast();
 });
 
 const getWeather = async () => {
@@ -68,49 +67,6 @@ const getWeather = async () => {
     } catch (error) {
         console.error('Error loading weather details...', error);
     }
-}
-
-
-/*
-    API call to get the 3 day forecast (Free tier max)
-    ** NOTE: Can be used for hourly forecast as well**
-*/
-const getForecast = async () => {
-    const cityValue = userInputElement.value;
-
-    const url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${encodeURIComponent(cityValue)}&days=3`;
-
-    try {
-        const response = await fetch(url);
-        const forecast = await response.json();
-        // console.log(forecast.forecast[0]);
-        displayThreeDayForecast(forecast);
-    } catch (error) {
-        console.error('Error loading forecast details', error);
-    }
-}
-
-/*
-    STOP HERE FOR NIGHT - display three day forecast is just to show what objects are being returned and what data it gives to me. Tomorrow - 
-    TODO: create div for each day, add data into div, style, add to dashboard
-    data needed - icon, day, weather description, average temp?
-*/
-
-const displayThreeDayForecast = forecast => {
-    for (let i = 0; i < forecast.forecast.forecastday.length; i++) {
-        console.log(forecast.forecast.forecastday[i]);
-        createDayForecast(forecast.forecast.forecastday[i]);
-    }
-}
-
-const createDayForecast = day => {
-    const daySection = document.createElement('section');
-    daySection.classList.add('daySection');
-
-    const date = day.date;
-    const day1 = day.day;
-    console.log(day1);
-
 }
 
 /*
@@ -155,7 +111,7 @@ const displayWeatherCondition = current => {
     // Create temp paragraph element, assign class, display data
     const temp = document.createElement('p');
     temp.classList.add('temp');
-    temp.innerText = `${current.temp_f}`;
+    temp.innerHTML = `${current.temp_f}&#8457;`;
 
     // Create weather description
     const weatherDescription = document.createElement('p');
@@ -345,7 +301,6 @@ const displayWeather = data => {
     // add weather stats to dashboard
     dashboard.appendChild(weatherStats);
     displayWeatherImage(data.current);
-    dashboard.appendChild(threeDayForecast);
 
     mainContainer.appendChild(dashboard);
 }

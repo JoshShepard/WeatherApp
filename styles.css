@@ -96,9 +96,8 @@ body {
 
 /* WEATHER DASHBOARD SECTION */
 .dashboardSection {
-    border: 3px solid purple;
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-evenly;
     height: 800px
 }
 
@@ -163,7 +162,3 @@ KEEP TO SEE IF IT NEEDS MARGIN-RIGHT AFTER WEEK FORECAST IS DISPLAYED
     width: 40rem;
 }
 
-.weekForecast {
-    border: 3px solid yellow;
-    width: 400px;
-}
